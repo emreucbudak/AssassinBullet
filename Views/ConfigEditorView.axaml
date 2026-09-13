@@ -1,0 +1,290 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:AssassinBullet.ViewModels"
+             x:Class="AssassinBullet.Views.ConfigEditorView"
+             x:DataType="vm:ConfigEditorViewModel">
+    <UserControl.DataTemplates>
+        <DataTemplate DataType="{x:Type vm:HttpBlockViewModel}" x:DataType="vm:HttpBlockViewModel">
+            <StackPanel Spacing="10">
+                <CheckBox Content="Ana sayfa URL'sini kullan"
+                          IsChecked="{Binding UseHomePageUrl, Mode=TwoWay}"
+                          AutomationProperties.AutomationId="UseTargetUrlCheckBox" />
+                <TextBlock Text="Metot" Classes="editorLabel" />
+                <ComboBox ItemsSource="{Binding Methods}" SelectedItem="{Binding Method, Mode=TwoWay}"
+                          HorizontalAlignment="Stretch" MinHeight="40" AutomationProperties.Name="Metot" />
+                <TextBlock Text="URL" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding Url, Mode=TwoWay}" IsEnabled="{Binding !UseHomePageUrl}"
+                         PlaceholderText="https://example.com" AutomationProperties.Name="URL" />
+                <TextBlock Text="Başlıklar" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding Headers, Mode=TwoWay}"
+                         PlaceholderText="Accept: application/json" AcceptsReturn="True" TextWrapping="Wrap"
+                         MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Başlıklar" />
+                <TextBlock Text="Gövde" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding Body, Mode=TwoWay}"
+                         PlaceholderText="İstek gövdesi" AcceptsReturn="True" TextWrapping="Wrap"
+                         MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Gövde" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:VariableBlockViewModel}" x:DataType="vm:VariableBlockViewModel">
+            <StackPanel Spacing="10">
+                <TextBlock Text="Değişken adı" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding VariableName, Mode=TwoWay}"
+                         PlaceholderText="degisken" AutomationProperties.Name="Değişken adı" />
+                <TextBlock Text="Değer" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding VariableValue, Mode=TwoWay}"
+                         PlaceholderText="Değişken değeri" AcceptsReturn="True" TextWrapping="Wrap"
+                         MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Değer" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ParseBlockViewModel}" x:DataType="vm:ParseBlockViewModel">
+            <StackPanel Spacing="10">
+                <TextBlock Text="Kaynak" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding Source, Mode=TwoWay}"
+                         PlaceholderText="&lt;Source&gt; veya değişken adı" AutomationProperties.Name="Kaynak" />
+                <TextBlock Text="Sol sınır" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding Left, Mode=TwoWay}"
+                         PlaceholderText="Örn. &lt;title&gt;" AcceptsReturn="True" TextWrapping="Wrap"
+                         MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Sol sınır" />
+                <TextBlock Text="Sağ sınır" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding Right, Mode=TwoWay}"
+                         PlaceholderText="Örn. &lt;/title&gt;" AcceptsReturn="True" TextWrapping="Wrap"
+                         MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Sağ sınır" />
+                <TextBlock Text="Hedef değişken adı" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding VariableName, Mode=TwoWay}"
+                         PlaceholderText="urunAdi" AutomationProperties.Name="Hedef değişken adı" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:KeyCheckBlockViewModel}" x:DataType="vm:KeyCheckBlockViewModel">
+            <StackPanel Spacing="10">
+                <TextBlock Text="Where Check" Classes="editorLabel" />
+                <ComboBox ItemsSource="{Binding Sources}" SelectedItem="{Binding WhereCheck, Mode=TwoWay}"
+                          HorizontalAlignment="Stretch" MinHeight="40" AutomationProperties.Name="Where Check" />
+                <TextBlock Text="Başarı metni" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding SuccessText, Mode=TwoWay}"
+                         PlaceholderText="Başarılı yanıt metni" AcceptsReturn="True" TextWrapping="Wrap"
+                         MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Başarı metni" />
+                <TextBlock Text="Hata metni" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding FailureText, Mode=TwoWay}"
+                         PlaceholderText="Hata yanıt metni" AcceptsReturn="True" TextWrapping="Wrap"
+                         MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Hata metni" />
+                <TextBlock Text="Retry mesajı" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding RetryText, Mode=TwoWay}"
+                         PlaceholderText="Yeniden deneme gerektiren yanıt metni" AcceptsReturn="True" TextWrapping="Wrap"
+                         MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Retry mesajı" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:FileWriteBlockViewModel}" x:DataType="vm:FileWriteBlockViewModel">
+            <StackPanel Spacing="10">
+                <TextBlock Text="Dosyaya yazılacak metin" Classes="editorLabel" />
+                <TextBox Classes="editorInput" Text="{Binding FileContent, Mode=TwoWay}"
+                         PlaceholderText="&lt;isim&gt;:&lt;sonuc&gt;" MaxLength="65536"
+                         AutomationProperties.Name="Dosyaya yazılacak metin" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.DataTemplates>
+    <UserControl.Styles>
+        <Style Selector="Border.editorPanel">
+            <Setter Property="Background" Value="#171A22" />
+            <Setter Property="BorderBrush" Value="#292D38" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="14" />
+            <Setter Property="Padding" Value="14" />
+        </Style>
+        <Style Selector="Button.editor">
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="CornerRadius" Value="9" />
+            <Setter Property="Background" Value="#242936" />
+            <Setter Property="BorderBrush" Value="#363D4D" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="#F4F6FA" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="TextBox.editorInput">
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="Padding" Value="10,8" />
+            <Setter Property="Background" Value="#11141B" />
+            <Setter Property="BorderBrush" Value="#343A48" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Foreground" Value="#F4F6FA" />
+        </Style>
+        <Style Selector="TextBlock.editorLabel">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="#AEB4C2" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style Selector="ListBoxItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,0,0,8" />
+        </Style>
+        <Style Selector="ListBoxItem:selected Border.blockTile">
+            <Setter Property="BorderBrush" Value="#E43D4F" />
+            <Setter Property="Background" Value="#2D2029" />
+        </Style>
+
+    </UserControl.Styles>
+
+    <Grid RowDefinitions="Auto,*" RowSpacing="12">
+        <Grid ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="8">
+            <TextBox Classes="editorInput" Text="{Binding ConfigName, Mode=TwoWay}"
+                     MaxLength="120" PlaceholderText="Config adı"
+                     AutomationProperties.Name="Config adı" />
+            <Button Grid.Column="1" Classes="editor" Content="＋ Ekle"
+                    AutomationProperties.Name="Blok ekle">
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuItem Header="HTTP İsteği"
+                                  Command="{Binding AddBlockCommand}" CommandParameter="HttpRequest" />
+                        <MenuItem Header="Değişken"
+                                  Command="{Binding AddBlockCommand}" CommandParameter="Variable" />
+                        <MenuItem Header="KeyCheck"
+                                  Command="{Binding AddBlockCommand}" CommandParameter="KeyCheck" />
+                        <MenuItem Header="Parse (Veri çıkar)"
+                                  Command="{Binding AddBlockCommand}" CommandParameter="Parse" />
+                        <MenuItem Header="FileWrite (Dosyaya yaz)"
+                                  Command="{Binding AddBlockCommand}" CommandParameter="FileWrite" />
+                    </MenuFlyout>
+                </Button.Flyout>
+            </Button>
+            <Button Grid.Column="2" Classes="editor" Content="Yeni" Click="New_Click" />
+            <Button Grid.Column="3" Classes="editor" Content="Kaydet" Click="Save_Click" />
+        </Grid>
+
+        <Grid Grid.Row="1" RowDefinitions="*,180" ColumnSpacing="12" RowSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" MinWidth="260" />
+                <ColumnDefinition Width="7*" MinWidth="360" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" Classes="editorPanel">
+                <Grid RowDefinitions="Auto,*,Auto" RowSpacing="14">
+                    <Grid>
+                        <TextBlock Text="İŞLEM AKIŞI" FontSize="12" FontWeight="Bold" Foreground="#AEB4C2" />
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <ListBox ItemsSource="{Binding Blocks}" SelectedItem="{Binding SelectedBlock, Mode=TwoWay}"
+                                 IsVisible="{Binding HasBlocks}" Background="Transparent" BorderThickness="0" Padding="0"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 AutomationProperties.Name="Config işlem akışı">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate x:DataType="vm:ConfigBlockViewModel">
+                                    <Border Classes="blockTile" CornerRadius="10" Padding="12"
+                                            Background="#1C2029" BorderBrush="#323846" BorderThickness="1">
+                                        <StackPanel Spacing="7">
+                                            <Grid ColumnDefinitions="*,Auto">
+                                                <TextBlock Text="{Binding TypeTitle}" Foreground="#AAB9FF" FontSize="11"
+                                                           VerticalAlignment="Center" />
+                                                <CheckBox Grid.Column="1" IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                          MinHeight="24" ToolTip.Tip="Blok etkin"
+                                                          AutomationProperties.Name="Blok etkin" />
+                                            </Grid>
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold"
+                                                       TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding Summary}" Foreground="#939DAF" FontSize="12"
+                                                       TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <StackPanel IsVisible="{Binding !HasBlocks}" VerticalAlignment="Center" Spacing="10" Margin="8">
+                            <TextBlock Text="İlk bloğunu ekle" FontSize="16" FontWeight="SemiBold"
+                                       TextAlignment="Center" TextWrapping="Wrap" />
+                            <TextBlock Text="Bloklar eklediğin sırayla burada listelenir."
+                                       Foreground="#939DAF" FontSize="13" TextAlignment="Center" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="2" ColumnDefinitions="Auto,Auto,*" ColumnSpacing="6">
+                        <Button Classes="editor" Content="↑" Command="{Binding MoveUpCommand}"
+                                ToolTip.Tip="Yukarı taşı" AutomationProperties.Name="Bloğu yukarı taşı" />
+                        <Button Grid.Column="1" Classes="editor" Content="↓" Command="{Binding MoveDownCommand}"
+                                ToolTip.Tip="Aşağı taşı" AutomationProperties.Name="Bloğu aşağı taşı" />
+                        <Button Grid.Column="2" Classes="editor" Content="Sil" Command="{Binding RemoveBlockCommand}"
+                                HorizontalAlignment="Stretch" Padding="6,0" FontSize="12" />
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Classes="editorPanel">
+                <Grid RowDefinitions="Auto,Auto,*" RowSpacing="12">
+                    <TextBlock Text="BLOK AYARLARI" FontSize="12" FontWeight="Bold" Foreground="#AEB4C2" />
+                    <StackPanel Grid.Row="1" IsVisible="{Binding HasHttpSelection}" Spacing="8">
+
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                            <Button Classes="editor" Content="İsteği Gönder"
+                                    Command="{Binding SendHttpCommand}" HorizontalAlignment="Stretch" />
+                            <Button Grid.Column="1" Classes="editor" Content="İptal"
+                                    Command="{Binding SendHttpCancelCommand}" />
+                        </Grid>
+                        <TextBlock Text="Tek istek • Yönlendirme yok"
+                                   FontSize="11" Foreground="#939DAF" TextWrapping="Wrap" />
+                    </StackPanel>
+                    <TextBlock Grid.Row="2" IsVisible="{Binding !HasSelection}" Text="Düzenlemek için akıştan bir blok seç."
+                               TextWrapping="Wrap" Foreground="#939DAF" VerticalAlignment="Center" TextAlignment="Center" />
+                    <ScrollViewer Grid.Row="2" IsVisible="{Binding HasSelection}"
+                                  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Spacing="12">
+                            <StackPanel IsVisible="{Binding HasResponseCheckSelection}" Spacing="8">
+                                <Button Classes="editor" Content="Yanıtı Kontrol Et"
+                                        HorizontalAlignment="Stretch" Command="{Binding CheckResponseCommand}"
+                                        AutomationProperties.AutomationId="CheckResponseButton" />
+                                <Border Background="#202631" CornerRadius="8" Padding="10">
+                                    <TextBlock Text="{Binding ResponseCheckMessage}" Foreground="#AAB9FF"
+                                               TextWrapping="Wrap" FontSize="12"
+                                               AutomationProperties.AutomationId="ResponseCheckResult" />
+                                </Border>
+                                <TextBlock Classes="editorLabel"
+                                           Text="Son HTTP yanıtındaki metni kontrol eder; büyük/küçük harf ayrımı yoktur." />
+                            </StackPanel>
+                            <TextBlock Text="{Binding SelectedBlock.Description}" Classes="editorLabel"
+                                       IsVisible="{Binding !HasHttpSelection}" />
+                            <TextBlock Text="Blok adı" Classes="editorLabel" />
+                            <TextBox Classes="editorInput" Text="{Binding SelectedBlock.Name, Mode=TwoWay}"
+                                     MaxLength="100" AutomationProperties.Name="Blok adı" />
+                            <CheckBox Content="Blok etkin"
+                                      IsChecked="{Binding SelectedBlock.IsEnabled, Mode=TwoWay}" />
+                            <ContentControl Content="{Binding SelectedBlock}" HorizontalContentAlignment="Stretch" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                    Classes="editorPanel" Padding="12" Background="#050505">
+                <Grid IsVisible="{Binding IsHttpPreviewVisible}">
+                    <TabControl>
+                        <TabItem Header="Yanıt">
+                            <Border Background="#11141B" BorderBrush="#343A48" BorderThickness="1"
+                                    CornerRadius="8" Padding="10">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                                              VerticalScrollBarVisibility="Auto">
+                                    <TextBox Text="{Binding HttpResponseBody, Mode=OneWay}"
+                                             IsReadOnly="True" AcceptsReturn="True" MinHeight="80"
+                                             FontFamily="Consolas" FontSize="12"
+                                             Background="Transparent" BorderThickness="0"
+                                             TextWrapping="NoWrap"
+                                             ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                             ScrollViewer.VerticalScrollBarVisibility="Disabled" />
+                                </ScrollViewer>
+                            </Border>
+                        </TabItem>
+                        <TabItem Header="Başlıklar">
+                            <TextBox Text="{Binding HttpResponseHeaders, Mode=OneWay}"
+                                     IsReadOnly="True" AcceptsReturn="True"
+                                     FontFamily="Consolas" FontSize="12"
+                                     TextWrapping="NoWrap"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                        </TabItem>
+                    </TabControl>
+                    <Button Classes="editor" Content="Kapat" Height="30"
+                            HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0,4,0"
+                            Command="{Binding CloseHttpPreviewCommand}" />
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
+
+

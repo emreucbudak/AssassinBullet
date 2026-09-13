@@ -1,0 +1,63 @@
+{
+  "ConfigName": "IpTvM3UConfig",
+  "Blocks": [
+    {
+      "TargetUrl": "",
+      "Method": "GET",
+      "Body": "",
+      "Headers": {},
+      "UseHomePageUrl": true,
+      "BlockName": "HTTP İsteği",
+      "BlockType": 0
+    },
+    {
+      "WhereCheck": "Body",
+      "SuccessMessage": [
+        "#EXTM3U"
+      ],
+      "FailedMessage": [],
+      "RetryMessage": [],
+      "BlockName": "KeyCheck",
+      "BlockType": 1
+    },
+    {
+      "TargetUrl": "<BaseUrl>/player_api.php?username=<username>&password=<password>",
+      "Method": "GET",
+      "Body": "",
+      "Headers": {},
+      "UseHomePageUrl": false,
+      "BlockName": "HTTP İsteği",
+      "BlockType": 0
+    },
+    {
+      "ParseBlockName": "<Source>",
+      "LeftParse": "{\"user_info\":{",
+      "RightParse": "}}",
+      "VariableName": "iptvInfo",
+      "BlockName": "Parse",
+      "BlockType": 3
+    },
+    {
+      "TargetUrl": "<BaseUrl>/player_api.php?username=<username>&password=<password>&action=get_live_categories",
+      "Method": "GET",
+      "Body": "",
+      "Headers": {},
+      "UseHomePageUrl": false,
+      "BlockName": "HTTP İsteği",
+      "BlockType": 0
+    },
+    {
+      "ParseBlockName": "<Source>",
+      "LeftParse": "[",
+      "RightParse": "]",
+      "VariableName": "ipTvCategories",
+      "BlockName": "Parse",
+      "BlockType": 3
+    },
+    {
+      "FileContent": "M3U Linki : <TargetUrl> Üyelik Bilgileri : <iptvInfo> Kategoriler: <ipTvCategories>",
+      "BlockName": "FileWrite",
+      "BlockType": 4
+    }
+  ]
+}

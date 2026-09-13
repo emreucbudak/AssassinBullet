@@ -1,0 +1,98 @@
+{
+  "ConfigName": "ENGUNCELCONFIGM3U",
+  "Blocks": [
+    {
+      "TargetUrl": "",
+      "Method": "GET",
+      "Body": "",
+      "Headers": {},
+      "UseHomePageUrl": true,
+      "BlockName": "HTTP İsteği",
+      "BlockType": 0
+    },
+    {
+      "WhereCheck": "Body",
+      "SuccessMessage": [
+        "#EXTM3U"
+      ],
+      "FailedMessage": [],
+      "RetryMessage": [],
+      "BlockName": "KeyCheck",
+      "BlockType": 1
+    },
+    {
+      "TargetUrl": "<BaseUrl>/player_api.php?username=<username>&password=<password>",
+      "Method": "GET",
+      "Body": "",
+      "Headers": {},
+      "UseHomePageUrl": false,
+      "BlockName": "HTTP İsteği",
+      "BlockType": 0
+    },
+    {
+      "WhereCheck": "Body",
+      "SuccessMessage": [
+        "\"auth\":1,\"status\":\"Active\","
+      ],
+      "FailedMessage": [
+        "\"auth\":0,"
+      ],
+      "RetryMessage": [],
+      "BlockName": "KeyCheck",
+      "BlockType": 1
+    },
+    {
+      "ParseBlockName": "<Source>",
+      "LeftParse": "\"auth\":",
+      "RightParse": ",",
+      "VariableName": "authCount",
+      "BlockName": "Parse",
+      "BlockType": 3
+    },
+    {
+      "ParseBlockName": "<Source>",
+      "LeftParse": "\"status\":\"",
+      "RightParse": "\"",
+      "VariableName": "status",
+      "BlockName": "Parse",
+      "BlockType": 3
+    },
+    {
+      "ParseBlockName": "<Source>",
+      "LeftParse": "\"exp_date\":\"",
+      "RightParse": "\"",
+      "VariableName": "expDate",
+      "BlockName": "Parse",
+      "BlockType": 3
+    },
+    {
+      "ParseBlockName": "<Source>",
+      "LeftParse": "\"is_trial\":\"",
+      "RightParse": "\"",
+      "VariableName": "isTrial",
+      "BlockName": "Parse",
+      "BlockType": 3
+    },
+    {
+      "ParseBlockName": "<Source>",
+      "LeftParse": "\"active_cons\":\"",
+      "RightParse": "\"",
+      "VariableName": "activeCons",
+      "BlockName": "Parse",
+      "BlockType": 3
+    },
+    {
+      "ParseBlockName": "<Source>",
+      "LeftParse": "\"max_connections\":\"",
+      "RightParse": "\"",
+      "VariableName": "maxCons",
+      "BlockName": "Parse",
+      "BlockType": 3
+    },
+    {
+      "FileContent": "IPTV => M3U Link = <TargetUrl>  Auth = <authCount> Status = <status> Exp Date = <expDate> IsTrial = <isTrial> Aktif Bağlantı = <activeCons> Maks. Bağlantı = <maxCons>",
+      "BlockName": "FileWrite",
+      "BlockType": 4
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "ConfigName": "Yeni Config",
+  "Blocks": [
+    {
+      "TargetUrl": "",
+      "Method": "GET",
+      "Body": "",
+      "Headers": {},
+      "UseHomePageUrl": true,
+      "BlockName": "HTTP İsteği",
+      "BlockType": 0
+    },
+    {
+      "WhereCheck": "Body",
+      "SuccessMessage": [
+        "#EXTM3U"
+      ],
+      "FailedMessage": [],
+      "RetryMessage": [],
+      "BlockName": "KeyCheck",
+      "BlockType": 1
+    },
+    {
+      "FileContent": "emre <TargetUrl> başarılı",
+      "BlockName": "FileWrite",
+      "BlockType": 4
+    }
+  ]
+}

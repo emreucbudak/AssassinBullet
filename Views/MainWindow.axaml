@@ -1,0 +1,404 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:AssassinBullet.ViewModels"
+        xmlns:models="using:AssassinBullet.Models"
+        xmlns:views="using:AssassinBullet.Views"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        d:DesignWidth="1200" d:DesignHeight="760"
+        x:Class="AssassinBullet.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/assassinbullet-icon.ico"
+        Title="AssassinBullet"
+        Width="1200" Height="760"
+        MinWidth="960" MinHeight="640"
+        Background="#101218"
+        WindowStartupLocation="CenterScreen">
+
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="FontFamily" Value="Inter" />
+            <Setter Property="Foreground" Value="#F4F6FA" />
+        </Style>
+        <Style Selector="Border.card">
+            <Setter Property="Background" Value="#171A22" />
+            <Setter Property="BorderBrush" Value="#292D38" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="18" />
+        </Style>
+        <Style Selector="Button.action">
+            <Setter Property="Height" Value="44" />
+            <Setter Property="Padding" Value="18,0" />
+            <Setter Property="Background" Value="#20242E" />
+            <Setter Property="BorderBrush" Value="#343A48" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Foreground" Value="#F4F6FA" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="Button.action:pointerover">
+            <Setter Property="Background" Value="#292E3A" />
+            <Setter Property="BorderBrush" Value="#4B5262" />
+        </Style>
+        <Style Selector="Button.primary">
+            <Setter Property="Height" Value="46" />
+            <Setter Property="Padding" Value="24,0" />
+            <Setter Property="Background" Value="#E43D4F" />
+            <Setter Property="BorderBrush" Value="#F45A6A" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="Background" Value="#F04A5C" />
+        </Style>
+        <Style Selector="Button.navigation">
+            <Setter Property="Height" Value="48" />
+            <Setter Property="Padding" Value="16,0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Foreground" Value="#AEB4C2" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style Selector="Button.navigation:pointerover">
+            <Setter Property="Background" Value="#20242E" />
+            <Setter Property="Foreground" Value="#F4F6FA" />
+        </Style>
+        <Style Selector="Button.navigation.selected">
+            <Setter Property="Background" Value="#321E27" />
+            <Setter Property="BorderBrush" Value="#60303A" />
+            <Setter Property="Foreground" Value="#FF8192" />
+        </Style>
+        <Style Selector="Button.profileLink">
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#9BACF5" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Cursor" Value="Hand" />
+        </Style>
+        <Style Selector="TextBox.address">
+            <Setter Property="Height" Value="46" />
+            <Setter Property="Padding" Value="14,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="#11141B" />
+            <Setter Property="BorderBrush" Value="#343A48" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Foreground" Value="#F4F6FA" />
+            <Setter Property="PlaceholderText" Value="https://hedef-adres.com" />
+        </Style>
+        <Style Selector="NumericUpDown.botCount">
+            <Setter Property="Width" Value="96" />
+            <Setter Property="Height" Value="46" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Background" Value="#11141B" />
+            <Setter Property="BorderBrush" Value="#343A48" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Foreground" Value="#F4F6FA" />
+        </Style>
+        <Style Selector="Border.infoRow">
+            <Setter Property="Background" Value="#13161D" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="14,12" />
+        </Style>
+        <Style Selector="Border.stat">
+            <Setter Property="Background" Value="#13161D" />
+            <Setter Property="BorderBrush" Value="#292D38" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Padding" Value="8,12" />
+        </Style>
+        <Style Selector="TextBlock.statValue">
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+        <Style Selector="TextBlock.statLabel">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="#AEB4C2" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Window.Styles>
+
+    <Grid ColumnDefinitions="220,*">
+        <Border Grid.Column="0" Background="#14171F"
+                BorderBrush="#292D38" BorderThickness="0,0,1,0"
+                Padding="16,28"
+                AutomationProperties.Name="Ana menü">
+            <StackPanel Spacing="24">
+                <StackPanel Orientation="Horizontal" Spacing="10" Margin="8,0">
+                    <Image Source="/Assets/assassinbullet-icon.png" Width="34" Height="34"
+                           Stretch="Uniform"
+                           AutomationProperties.Name="AssassinBullet logosu" />
+                </StackPanel>
+                <Border Height="1" Background="#292D38" Margin="8,0" />
+                <StackPanel Spacing="8">
+                    <Button x:Name="ScanMenuButton" Classes="navigation selected"
+                            Content="Tarama" Tag="scan" Click="Navigate_Click" />
+                    <Button x:Name="ConfigMenuButton" Classes="navigation"
+                            Content="Config Oluşturucu" Tag="config" Click="Navigate_Click" />
+                    <Button x:Name="SettingsMenuButton" Classes="navigation"
+                            Content="Ayarlar" Tag="settings" Click="Navigate_Click" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+    <Grid x:Name="ScanPage" Grid.Column="1" Margin="24"
+          RowDefinitions="Auto,*" RowSpacing="22">
+        <Border Grid.Row="0" Classes="card" Padding="20">
+            <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="16">
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="16">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Button Classes="action"
+                                Content="Config Seç" Click="SelectConfig_Click" Name="SelectConfigButton" />
+                        <Border Grid.Column="1" Background="#11141B"
+                                CornerRadius="10" Padding="12,0">
+                            <TextBlock x:Name="ConfigFileText" Text="Config seçilmedi"
+                                       Foreground="#858C9D" VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis" />
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Column="1" ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Button Classes="action"
+                                Content="Proxy Seç" Click="SelectProxy_Click" Name="SelectProxyButton" />
+                        <Border Grid.Column="1" Background="#11141B"
+                                CornerRadius="10" Padding="12,0">
+                            <TextBlock x:Name="ProxyFileText" Text="Proxy seçilmedi"
+                                       Foreground="#858C9D" VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis" />
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Column="2" ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <Button Classes="action"
+                                Content="Combolist Seç" Click="SelectCombolist_Click" Name="SelectCombolistButton" />
+                        <Border Grid.Column="1" Background="#11141B"
+                                CornerRadius="10" Padding="12,0">
+                            <TextBlock x:Name="CombolistFileText" Text="Combolist seçilmedi"
+                                       Foreground="#858C9D" VerticalAlignment="Center"
+                                       TextTrimming="CharacterEllipsis" />
+                        </Border>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1" ColumnDefinitions="*,Auto,Auto,Auto" ColumnSpacing="12">
+                    <TextBox x:Name="TargetAddressTextBox" Grid.Column="0"
+                             Classes="address" MaxLength="8192"
+                             ToolTip.Tip="Config içinde bu adresi {{targetUrl}} ile kullanabilirsin." />
+                    <TextBlock Grid.Column="1" Text="Bot"
+                               VerticalAlignment="Center" FontWeight="SemiBold" />
+                    <NumericUpDown x:Name="BotCountInput" Grid.Column="2"
+                                   Classes="botCount" Value="1"
+                                   Minimum="1" Maximum="100" Increment="1"
+                                   FormatString="0" ParsingNumberStyle="Integer"
+                                   ShowButtonSpinner="False"
+                                   AutomationProperties.Name="Bot sayısı" />
+                    <Button Grid.Column="3" Classes="primary"
+                            Content="Taramayı Başlat" Click="StartScan_Click" Name="StartScanButton"  />
+					<Button Grid.Column="3" Classes="primary"
+		                    Content="Taramayı Durdur" Click="StopScan_Click" Name="StopScanButton" IsVisible="False" />
+                </Grid>
+                <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                    <TextBox x:Name="OutputDirectoryTextBox"
+                             Classes="address" IsReadOnly="True"
+                             Text="{Binding OutputDirectory, Mode=OneWay}"
+                             ToolTip.Tip="{Binding OutputDirectory}"
+                             PlaceholderText="Kayıt klasörü seçilmedi"
+                             AutomationProperties.Name="Kayıt klasörü" />
+                    <Button Grid.Column="1" Classes="action" Height="46"
+                            Content="Kayıt Yeri Seç" Click="SelectOutputDirectory_Click" Name="SelectOutputDirectoryButton" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="22">
+            <Border Grid.Column="0" Classes="card" Padding="24">
+                <Grid RowDefinitions="Auto,Auto,*" RowSpacing="20">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Text="TARAMA DETAYLARI" FontSize="17" FontWeight="Bold"
+                                   VerticalAlignment="Center" TextWrapping="Wrap" />
+                        <TextBlock x:Name="ScanStateText" Grid.Column="1" Text="Bekliyor"
+                                   FontSize="13" Foreground="#AEB4C2"
+                                   Margin="16,0,0,0" VerticalAlignment="Center" />
+                    </Grid>
+                    <Border Grid.Row="1" Height="1" Background="#2A2E39" />
+                    <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled"
+                                  VerticalScrollBarVisibility="Auto">
+                    <StackPanel Spacing="10">
+                        <Border Classes="infoRow">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                                <TextBlock Text="Hedef" Width="72" Foreground="#858C9D" />
+                                <TextBlock x:Name="TargetDetailText" Grid.Column="1"
+                                           Text="Henüz adres girilmedi" FontWeight="SemiBold"
+                                           TextTrimming="CharacterEllipsis" />
+                            </Grid>
+                        </Border>
+                        <Border Classes="infoRow">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                                <TextBlock Text="Config" Width="72" Foreground="#858C9D" />
+                                <TextBlock x:Name="ConfigDetailText" Grid.Column="1"
+                                           Text="Seçilmedi" FontWeight="SemiBold"
+                                           TextTrimming="CharacterEllipsis" />
+                            </Grid>
+                        </Border>
+                        <Border Classes="infoRow">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                                <TextBlock Text="Proxy" Width="72" Foreground="#858C9D" />
+                                <TextBlock x:Name="ProxyDetailText" Grid.Column="1"
+                                           Text="Seçilmedi" FontWeight="SemiBold"
+                                           TextTrimming="CharacterEllipsis" />
+                            </Grid>
+                        </Border>
+                        <Border Classes="infoRow">
+                            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                                <TextBlock Text="Durum" Width="72" Foreground="#858C9D" />
+                                <TextBlock x:Name="ScanStatusText" Grid.Column="1"
+                                           Text="Başlatılmaya hazır" FontWeight="SemiBold"
+                                           TextWrapping="Wrap" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1" Classes="card" Padding="24">
+                <Grid RowDefinitions="Auto,Auto,*,Auto" RowSpacing="16">
+                    <Grid ColumnDefinitions="*,Auto">
+                        <TextBlock Text="SONUÇ LİSTESİ" FontSize="17" FontWeight="Bold"
+                                   VerticalAlignment="Center" />
+                        <Border Grid.Column="1" MinWidth="46" Padding="12,7"
+                                CornerRadius="14" Background="#321B21"
+                                BorderBrush="#60303A" BorderThickness="1">
+                            <TextBlock Text="0" HorizontalAlignment="Center"
+                                       FontSize="14" FontWeight="Bold" Foreground="#FF7180" />
+                        </Border>
+                    </Grid>
+                    <Border Grid.Row="1" Height="1" Background="#2A2E39" />
+                    <Border x:Name="ResultsPanel" Grid.Row="2"
+                            Background="#13161D" BorderBrush="#242832"
+                            BorderThickness="1" CornerRadius="14" Padding="16">
+                        <Grid>
+                            <ListBox x:Name="ResultsListBox"
+                                     ItemsSource="{Binding Results}"
+                                     IsVisible="{Binding HasResults}"
+                                     Background="Transparent" BorderThickness="0"
+                                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" x:CompileBindings="False" TextWrapping="Wrap" Margin="0,6" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <StackPanel IsVisible="{Binding !HasResults}"
+                                        HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="12">
+                                <TextBlock Text="Henüz sonuç yok" HorizontalAlignment="Center"
+                                           FontSize="15" FontWeight="SemiBold" Foreground="#AEB4C2" />
+                                <TextBlock Text="Tüm tarama sonuçları burada listelenecek."
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           FontSize="13" Foreground="#6F7688" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    <Grid Grid.Row="3" ColumnDefinitions="*,*,*,*" ColumnSpacing="8">
+                        <Border Classes="stat">
+                            <StackPanel Spacing="4">
+                                <TextBlock Classes="statValue" Text="{Binding AllCount}"
+                                           Foreground="#D5DAE5" Name="allStatsValue" />
+                                <TextBlock Classes="statLabel" Text="Tüm Tarama" />
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="1" Classes="stat">
+                            <StackPanel Spacing="4">
+                                <TextBlock Classes="statValue" Text="{Binding SuccessCount}"
+                                           Foreground="#79E5A8" Name="successStatValue" />
+                                <TextBlock Classes="statLabel" Text="Başarılı" />
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="2" Classes="stat">
+                            <StackPanel Spacing="4">
+                                <TextBlock Classes="statValue" Text="{Binding FailureCount}"
+                                           Foreground="#FF7180" Name="failedStatsValue" />
+                                <TextBlock Classes="statLabel" Text="Başarısız" />
+                            </StackPanel>
+                        </Border>
+                        <Border Grid.Column="3" Classes="stat">
+                            <StackPanel Spacing="4">
+                                <TextBlock Classes="statValue" Text="{Binding RetryCount}"
+                                           Foreground="#FFB35C" Name="RetryStatsValue"/>
+                                <TextBlock Classes="statLabel" Text="Retry" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+    </Grid>
+
+        <Border x:Name="SettingsPage" Grid.Column="1" Margin="24"
+                Classes="card" Padding="28" IsVisible="False">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+                <StackPanel Spacing="28">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="AssassinBullet" FontSize="30" FontWeight="Bold"
+                                   AutomationProperties.AutomationId="SettingsProgramName" />
+                        <Button Classes="profileLink" Content="github.com/emreucbudak"
+                                Click="OpenGitHub_Click"
+                                ToolTip.Tip="GitHub profilini tarayıcıda aç" />
+                    </StackPanel>
+                    <Border Height="1" Background="#292D38" />
+                    <Border Background="#13161D" CornerRadius="14" Padding="20">
+                        <StackPanel Spacing="14">
+                            <TextBlock Text="Hit olduğunda çalacak müzik"
+                                       FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap" />
+                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                <TextBox x:Name="HitSoundPathTextBox" Classes="address"
+                                         IsReadOnly="True"
+                                         Text="{Binding HitSoundPath, Mode=OneWay}"
+                                         ToolTip.Tip="{Binding HitSoundPath}"
+                                         PlaceholderText="Müzik dosyası seçilmedi"
+                                         AutomationProperties.Name="Hit müzik dosyası" />
+                                <Button Grid.Column="1" Classes="action" Height="46"
+                                        Content="Müzik Seç" Click="SelectHitSound_Click" />
+                            </Grid>
+                            <TextBlock Text="MP3, WAV, OGG, FLAC, M4A veya AAC"
+                                       FontSize="12" Foreground="#858C9D" TextWrapping="Wrap" />
+                            <TextBlock x:Name="SettingsStatusText" IsVisible="False"
+                                       FontSize="13" TextWrapping="Wrap" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+
+        <views:ConfigEditorView x:Name="ConfigEditorPage" Grid.Column="1"
+                                Margin="24" IsVisible="False" />
+    </Grid>
+</Window>
+
+

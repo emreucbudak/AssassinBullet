@@ -1,0 +1,39 @@
+{
+  "ConfigName": "IPTVM3UGUNCELCONFIG26",
+  "Blocks": [
+    {
+      "TargetUrl": "",
+      "Method": "GET",
+      "Body": "",
+      "Headers": {},
+      "UseHomePageUrl": true,
+      "BlockName": "HTTP İsteği",
+      "BlockType": 0
+    },
+    {
+      "WhereCheck": "Body",
+      "SuccessMessage": [
+        "\"auth\":1,"
+      ],
+      "FailedMessage": [
+        "{\"user_info\":{\"auth\":0}}"
+      ],
+      "RetryMessage": [],
+      "BlockName": "KeyCheck",
+      "BlockType": 1
+    },
+    {
+      "ParseBlockName": "<Source>",
+      "LeftParse": "{\"user_info\":{",
+      "RightParse": "}}",
+      "VariableName": "accountInfo",
+      "BlockName": "Parse",
+      "BlockType": 3
+    },
+    {
+      "FileContent": "IPTV => ADRES : <BaseUrl>/get.php?username=<username>&password=<password>&type=m3_plus Üyelik Detayları : <accountInfo> ",
+      "BlockName": "FileWrite",
+      "BlockType": 4
+    }
+  ]
+}

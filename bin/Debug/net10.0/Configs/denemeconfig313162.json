@@ -1,0 +1,58 @@
+{
+  "ConfigName": "denemeconfig313162",
+  "Blocks": [
+    {
+      "TargetUrl": "",
+      "Method": "GET",
+      "Body": "",
+      "Headers": {},
+      "UseHomePageUrl": true,
+      "BlockName": "HTTP İsteği",
+      "BlockType": 0
+    },
+    {
+      "WhereCheck": "Body",
+      "SuccessMessage": [
+        "#EXTM3U"
+      ],
+      "FailedMessage": [],
+      "RetryMessage": [],
+      "BlockName": "KeyCheck",
+      "BlockType": 1
+    },
+    {
+      "TargetUrl": "<BaseUrl>/player_api.php?username=<username>&password=<password>",
+      "Method": "GET",
+      "Body": "",
+      "Headers": {},
+      "UseHomePageUrl": false,
+      "BlockName": "HTTP İsteği",
+      "BlockType": 0
+    },
+    {
+      "WhereCheck": "Body",
+      "SuccessMessage": [
+        "{\"user_info\":{\"auth\":1,\"status\":\"Active\",\"is_trial\":\"0\",\"allowed_output_formats\":[\"m3u8\",\"ts\",\"rtmp\"]}}"
+      ],
+      "FailedMessage": [
+        "{\"user_info\":{\"auth\":0}}"
+      ],
+      "RetryMessage": [],
+      "BlockName": "KeyCheck",
+      "BlockType": 1
+    },
+    {
+      "ParseBlockName": "<Source>",
+      "LeftParse": "{\"user_info\":{\"username\":\"felix\",\"password\":\"ueg781@52sg\",\"message\":\"\",",
+      "RightParse": "]},\"server_info\":{\"url\":\"dg.199049.xyz\",\"port\":\"2086\",\"https_port\":\"25463\",\"server_protocol\":\"http\",\"rtmp_port\":\"25462\",\"timezone\":\"Europe\\/Istanbul\",\"timestamp_now\":1789137355,\"time_now\":\"2026-09-11 17:35:55\"}}",
+      "VariableName": "accountInfo",
+      "BlockName": "Parse",
+      "BlockType": 3
+    },
+    {
+      "FileContent": "IPTV => Adres = <TargetUrl>  Detaylar = <accountInfo>",
+      "BlockName": "FileWrite",
+      "BlockType": 4
+    }
+  ]
+}
