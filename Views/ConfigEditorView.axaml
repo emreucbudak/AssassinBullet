@@ -152,23 +152,19 @@
                         <ListBox ItemsSource="{Binding Blocks}" SelectedItem="{Binding SelectedBlock, Mode=TwoWay}"
                                  IsVisible="{Binding HasBlocks}" Background="Transparent" BorderThickness="0" Padding="0"
                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
                                  AutomationProperties.Name="Config işlem akışı">
                             <ListBox.ItemTemplate>
                                 <DataTemplate x:DataType="vm:ConfigBlockViewModel">
                                     <Border Classes="blockTile" CornerRadius="10" Padding="12"
                                             Background="#1C2029" BorderBrush="#323846" BorderThickness="1">
-                                        <StackPanel Spacing="7">
-                                            <Grid ColumnDefinitions="*,Auto">
-                                                <TextBlock Text="{Binding TypeTitle}" Foreground="#AAB9FF" FontSize="11"
-                                                           VerticalAlignment="Center" />
-                                                <CheckBox Grid.Column="1" IsChecked="{Binding IsEnabled, Mode=TwoWay}"
-                                                          MinHeight="24" ToolTip.Tip="Blok etkin"
-                                                          AutomationProperties.Name="Blok etkin" />
-                                            </Grid>
+                                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
                                             <TextBlock Text="{Binding Name}" FontWeight="SemiBold"
-                                                       TextTrimming="CharacterEllipsis" />
-                                        </StackPanel>
+                                                       TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                                            <CheckBox Grid.Column="1" IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                      MinHeight="24" ToolTip.Tip="Blok etkin"
+                                                      AutomationProperties.Name="Blok etkin" />
+                                        </Grid>
                                     </Border>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -206,17 +202,15 @@
                     <TextBlock Grid.Row="2" IsVisible="{Binding !HasSelection}" Text="Düzenlemek için akıştan bir blok seç."
                                TextWrapping="Wrap" Foreground="#939DAF" VerticalAlignment="Center" TextAlignment="Center" />
                     <ScrollViewer Grid.Row="2" IsVisible="{Binding HasSelection}"
-                                  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
                         <StackPanel Spacing="12">
                             <StackPanel IsVisible="{Binding HasResponseCheckSelection}" Spacing="8">
                                 <Button Classes="editor" Content="Yanıtı Kontrol Et"
                                         HorizontalAlignment="Stretch" Command="{Binding CheckResponseCommand}"
                                         AutomationProperties.AutomationId="CheckResponseButton" />
-                                <Border Background="#202631" CornerRadius="8" Padding="10">
-                                    <TextBlock Text="{Binding ResponseCheckMessage}" Foreground="#AAB9FF"
+                                <TextBlock Text="{Binding ResponseCheckMessage}" Foreground="#AAB9FF"
                                                TextWrapping="Wrap" FontSize="12"
                                                AutomationProperties.AutomationId="ResponseCheckResult" />
-                                </Border>
                             </StackPanel>
                             <TextBox Classes="editorInput" Text="{Binding SelectedBlock.Name, Mode=TwoWay}"
                                      MaxLength="100" PlaceholderText="Blok adı" AutomationProperties.Name="Blok adı" />
@@ -235,7 +229,7 @@
                             <Border Background="#11141B" BorderBrush="#343A48" BorderThickness="1"
                                     CornerRadius="8" Padding="10">
                                 <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                                              VerticalScrollBarVisibility="Auto">
+                                              VerticalScrollBarVisibility="Hidden">
                                     <TextBox Text="{Binding HttpResponseBody, Mode=OneWay}"
                                              IsReadOnly="True" AcceptsReturn="True" MinHeight="80"
                                              FontFamily="Consolas" FontSize="12"
@@ -252,7 +246,7 @@
                                      FontFamily="Consolas" FontSize="12"
                                      TextWrapping="NoWrap"
                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                                     ScrollViewer.VerticalScrollBarVisibility="Auto" />
+                                     ScrollViewer.VerticalScrollBarVisibility="Hidden" />
                         </TabItem>
                     </TabControl>
                     <Button Classes="editor" Content="Kapat" Height="30"
