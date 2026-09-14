@@ -255,40 +255,31 @@ namespace AssassinBullet.Services
                 ["Headers"] = response.Headers.ToString() + response.Content.Headers.ToString()
             };
         }
-        public Task<string> FileWrite(string content, Context context)
+        public string FileWrite(string content, Context context)
         {
             int index = 0;
-
             while (index < content.Length)
             {
-                int firstItem = content.IndexOf('<', index);
-                if (firstItem == -1)
-                    break;
-
-                int secondItem = content.IndexOf('>', firstItem + 1);
-                if (secondItem == -1)
-                    break;
-
-                string key = content.Substring(
-                    firstItem + 1, secondItem - firstItem - 1);
-
-                if (context.Variables.TryGetValue(key, out var value))
+                var firstIndex = content.IndexOf("<", index);
+                if(firstIndex == -1)
                 {
-                    string replacement = value?.ToString() ?? "";
-
-                    content = content
-                        .Remove(firstItem, secondItem - firstItem + 1)
-                        .Insert(firstItem, replacement);
-
-                    index = firstItem + replacement.Length;
+                    break;
+                }
+                var secondIndex = content.IndexOf(">", firstIndex);
+                if(secondIndex == -1)
+                {
+                    break;
+                }
+                var key = content.Substring(firstIndex + 1, secondIndex - firstIndex-1);
+                if (context.Variables.TryGetValue(key, out var value)) {
+                    content = content.Replace($"<{key}>", (string)value);
                 }
                 else
                 {
-                    index = secondItem + 1;
+                    index = secondIndex+1;
                 }
             }
-
-            return Task.FromResult(content);
+            return content;
         }
 
     }
