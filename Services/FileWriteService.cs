@@ -18,6 +18,8 @@ namespace AssassinBullet.Services
             {
                 string path = Path.Combine(FileWriteSettings.FileWriteLocation, FileWriteSettings.FileName);
                 await File.AppendAllTextAsync(path, content + Environment.NewLine);
+                Interlocked.Increment(ref ScanCounter.SuccessCount);
+                ScanCounter.NotifyCountersUpdated();
             }
             catch(Exception ex)
             {

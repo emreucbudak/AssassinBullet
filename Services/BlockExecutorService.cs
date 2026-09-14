@@ -179,16 +179,6 @@ namespace AssassinBullet.Services
                         throw new Exception("Başarısız");
                     }
                 }
-                foreach(var successMesage in check.SuccessMessage)
-                {
-                    if (headers.Contains(successMesage))
-                    {
-
-                        Interlocked.Increment(ref ScanCounter.SuccessCount);
-                        ScanCounter.NotifyCountersUpdated();
-                        
-                    }
-                }
                 foreach(var retryMessage in check.RetryMessage)
                 {
                     if (headers.Contains(retryMessage))
@@ -209,16 +199,6 @@ namespace AssassinBullet.Services
                         Interlocked.Increment(ref ScanCounter.FailureCount);
                         ScanCounter.NotifyCountersUpdated();
                         throw new Exception("Başarısız");
-                    }
-                }
-                foreach (var successMesage in check.SuccessMessage)
-                {
-                    if (body.Contains(successMesage))
-                    {
-
-                        Interlocked.Increment(ref ScanCounter.SuccessCount);
-                        ScanCounter.NotifyCountersUpdated();
-
                     }
                 }
                 foreach (var retryMessage in check.RetryMessage)
