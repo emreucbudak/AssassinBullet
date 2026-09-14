@@ -62,7 +62,8 @@
         <DataTemplate DataType="{x:Type vm:FileWriteBlockViewModel}" x:DataType="vm:FileWriteBlockViewModel">
             <StackPanel Spacing="10">
                 <TextBox Classes="editorInput" Text="{Binding FileContent, Mode=TwoWay}"
-                         PlaceholderText="&lt;isim&gt;:&lt;sonuc&gt;" MaxLength="65536"
+                         PlaceholderText="&lt;isim&gt;:&lt;sonuc&gt;" AcceptsReturn="True" TextWrapping="Wrap"
+                         MinHeight="160" MaxHeight="320" MaxLength="65536" HorizontalAlignment="Stretch"
                          AutomationProperties.Name="Dosyaya yazılacak metin" />
             </StackPanel>
         </DataTemplate>
