@@ -14,7 +14,7 @@ public sealed partial class KeyCheckBlockViewModel : ConfigBlockViewModel
     public KeyCheckBlockViewModel() : base("KeyCheck") { }
     public string[] Sources { get; } = ["Header", "Body"];
     public override string TypeTitle => "KeyCheck";
-    public override string Description => "Son HTTP yanıtındaki başarı, hata ve retry metinlerini kontrol et.";
+    public override string Description => string.Empty;
     public override string Summary => WhereCheck + " • Başarı / hata / retry kontrolü";
     public override KeyCheck ToBlock() => new()
     {

@@ -10,7 +10,7 @@ public sealed partial class FileWriteBlockViewModel : ConfigBlockViewModel
 
     public FileWriteBlockViewModel() : base("FileWrite") { }
     public override string TypeTitle => "FileWrite";
-    public override string Description => "Dosyaya yazılacak metni gir. Değişkenleri <isim> şeklinde kullanabilirsin.";
+    public override string Description => string.Empty;
     public override string Summary => string.IsNullOrWhiteSpace(FileContent)
         ? "Yazılacak metin girilmedi" : FileContent;
     public override FileWrite ToBlock() => new()
