@@ -12,7 +12,7 @@ public sealed partial class VariableBlockViewModel : ConfigBlockViewModel
 
     public VariableBlockViewModel() : base("Değişken") { }
     public override string TypeTitle => "Değişken";
-    public override string Description => "Config içinde kullanılacak sabit bir değişken tanımla.";
+    public override string Description => string.Empty;
     public override string Summary => string.IsNullOrWhiteSpace(VariableName)
         ? "Değişken adı girilmedi" : VariableName + " = " + VariableValue;
     public override Variable ToBlock() => new(VariableName, VariableValue) { BlockName = Name };

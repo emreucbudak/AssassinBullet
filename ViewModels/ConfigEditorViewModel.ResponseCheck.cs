@@ -9,7 +9,7 @@ public partial class ConfigEditorViewModel
     private string? _lastManualResponse;
     public bool HasResponseCheckSelection => SelectedBlock is KeyCheckBlockViewModel;
     private string _responseCheckMessage =
-        "Önce bir HTTP isteği gönder, sonra yanıtı kontrol et.";
+        string.Empty;
     public string ResponseCheckMessage
     {
         get => _responseCheckMessage;
@@ -48,7 +48,7 @@ public partial class ConfigEditorViewModel
     private void InvalidateResponseCheck()
     {
         ResponseCheckMessage = _lastManualResponse is null
-            ? "Önce bir HTTP isteği gönder."
+            ? string.Empty
             : "Hazır • Son HTTP yanıtını kontrol etmek için düğmeye bas.";
         CheckResponseCommand.NotifyCanExecuteChanged();
     }
