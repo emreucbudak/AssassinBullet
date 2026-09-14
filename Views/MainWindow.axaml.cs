@@ -10,7 +10,6 @@ using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -22,7 +21,6 @@ namespace AssassinBullet.Views;
 public partial class MainWindow : Window
 {
     private static readonly IBrush ReadyBrush = Brush.Parse("#79E5A8");
-    private static readonly IBrush WarningBrush = Brush.Parse("#FFB35C");
     private bool IsComboListLoaded = false;
     private bool isConfigLoaded = false;
     private bool isProxyLoaded = false;
@@ -84,12 +82,12 @@ public partial class MainWindow : Window
     {
         if (sender is not Button button ||
             button.Tag is not string page ||
-            page is not ("scan" or "config" or "settings"))
+            page is not ("scan" or "config"))
         {
             return;
         }
 
-        foreach (var menuButton in new[] { ScanMenuButton, ConfigMenuButton, SettingsMenuButton })
+        foreach (var menuButton in new[] { ScanMenuButton, ConfigMenuButton })
         {
             menuButton.Classes.Remove("selected");
         }
@@ -98,90 +96,7 @@ public partial class MainWindow : Window
         // Keep the same scan view alive so switching pages preserves entered values.
         ScanPage.IsVisible = page == "scan";
         ConfigEditorPage.IsVisible = page == "config";
-        SettingsPage.IsVisible = page == "settings";
 
-    }
-
-    private void OpenGitHub_Click(object? sender, RoutedEventArgs e)
-    {
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = "https://github.com/emreucbudak",
-                UseShellExecute = true
-            });
-        }
-        catch (Exception)
-        {
-            SetSettingsStatus("GitHub bağlantısı açılamadı. Tekrar deneyebilirsin.", true);
-        }
-    }
-
-    private async void SelectHitSound_Click(object? sender, RoutedEventArgs e)
-    {
-        if (DataContext is not MainViewModel viewModel)
-        {
-            return;
-        }
-
-        if (!StorageProvider.CanOpen)
-        {
-            SetSettingsStatus("Bu ortamda dosya seçici kullanılamıyor.", true);
-            return;
-        }
-
-        try
-        {
-            var files = await StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
-            {
-                Title = "Hit Müziği Seç",
-                AllowMultiple = false,
-                FileTypeFilter =
-                [
-                    new FilePickerFileType("Ses dosyaları")
-                    {
-                        Patterns = ["*.mp3", "*.wav", "*.ogg", "*.flac", "*.m4a", "*.aac"],
-                        MimeTypes = ["audio/*"]
-                    }
-                ]
-            });
-
-            var selectedFile = files.FirstOrDefault();
-            if (selectedFile is null)
-            {
-                return;
-            }
-
-            var localPath = selectedFile.TryGetLocalPath();
-            if (string.IsNullOrWhiteSpace(localPath))
-            {
-                SetSettingsStatus("Lütfen bilgisayardaki bir müzik dosyasını seç.", true);
-                return;
-            }
-
-            string[] allowedExtensions = [".mp3", ".wav", ".ogg", ".flac", ".m4a", ".aac"];
-            if (!allowedExtensions.Contains(Path.GetExtension(localPath), StringComparer.OrdinalIgnoreCase))
-            {
-                SetSettingsStatus("Lütfen MP3, WAV, OGG, FLAC, M4A veya AAC dosyası seç.", true);
-                return;
-            }
-
-            // Selection only: no playback, file copying, or persistent settings yet.
-            viewModel.HitSoundPath = localPath;
-            SetSettingsStatus("Müzik dosyası seçildi.");
-        }
-        catch (Exception)
-        {
-            SetSettingsStatus("Müzik dosyası seçilemedi. Tekrar deneyebilirsin.", true);
-        }
-    }
-
-    private void SetSettingsStatus(string message, bool isError = false)
-    {
-        SettingsStatusText.Text = message;
-        SettingsStatusText.Foreground = isError ? WarningBrush : ReadyBrush;
-        SettingsStatusText.IsVisible = true;
     }
 
     private async void SelectConfig_Click(object? sender, RoutedEventArgs e)

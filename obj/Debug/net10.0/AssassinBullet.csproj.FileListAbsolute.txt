@@ -1132,3 +1132,4 @@ C:\Users\gamee\OneDrive\Desktop\AssassinBullet\.diagnostics-build\runtimes\win-x
 C:\Users\gamee\OneDrive\Desktop\AssassinBullet\.diagnostics-build\runtimes\win-x64\native\libSkiaSharp.pdb
 C:\Users\gamee\OneDrive\Desktop\AssassinBullet\.diagnostics-build\runtimes\win-x86\native\libSkiaSharp.dll
 C:\Users\gamee\OneDrive\Desktop\AssassinBullet\.diagnostics-build\runtimes\win-x86\native\libSkiaSharp.pdb
+C:\Users\gamee\OneDrive\Desktop\AssassinBullet\obj\Debug\net10.0\AssassinBullet.sourcelink.json

@@ -35,13 +35,6 @@ public partial class MainViewModel : ViewModelBase
         set => SetProperty(ref _outputDirectory, value);
     }
 
-    private string? _hitSoundPath;
-    public string? HitSoundPath
-    {
-        get => _hitSoundPath;
-        set => SetProperty(ref _hitSoundPath, value);
-    }
-
     public MainViewModel()
     {
         Results.CollectionChanged += (_, _) => OnPropertyChanged(nameof(HasResults));

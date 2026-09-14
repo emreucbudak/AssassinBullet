@@ -85,17 +85,6 @@
             <Setter Property="BorderBrush" Value="#60303A" />
             <Setter Property="Foreground" Value="#FF8192" />
         </Style>
-        <Style Selector="Button.profileLink">
-            <Setter Property="Padding" Value="0" />
-            <Setter Property="Height" Value="28" />
-            <Setter Property="HorizontalAlignment" Value="Left" />
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Foreground" Value="#9BACF5" />
-            <Setter Property="FontSize" Value="14" />
-            <Setter Property="Cursor" Value="Hand" />
-        </Style>
         <Style Selector="TextBox.address">
             <Setter Property="Height" Value="46" />
             <Setter Property="Padding" Value="14,0" />
@@ -161,8 +150,6 @@
                             Content="Tarama" Tag="scan" Click="Navigate_Click" />
                     <Button x:Name="ConfigMenuButton" Classes="navigation"
                             Content="Config Oluşturucu" Tag="config" Click="Navigate_Click" />
-                    <Button x:Name="SettingsMenuButton" Classes="navigation"
-                            Content="Ayarlar" Tag="settings" Click="Navigate_Click" />
                 </StackPanel>
             </StackPanel>
         </Border>
@@ -358,43 +345,6 @@
         </Grid>
 
     </Grid>
-
-        <Border x:Name="SettingsPage" Grid.Column="1" Margin="24"
-                Classes="card" Padding="28" IsVisible="False">
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
-                          VerticalScrollBarVisibility="Auto">
-                <StackPanel Spacing="28">
-                    <StackPanel Spacing="8">
-                        <TextBlock Text="AssassinBullet" FontSize="30" FontWeight="Bold"
-                                   AutomationProperties.AutomationId="SettingsProgramName" />
-                        <Button Classes="profileLink" Content="github.com/emreucbudak"
-                                Click="OpenGitHub_Click"
-                                ToolTip.Tip="GitHub profilini tarayıcıda aç" />
-                    </StackPanel>
-                    <Border Height="1" Background="#292D38" />
-                    <Border Background="#13161D" CornerRadius="14" Padding="20">
-                        <StackPanel Spacing="14">
-                            <TextBlock Text="Hit olduğunda çalacak müzik"
-                                       FontSize="16" FontWeight="SemiBold" TextWrapping="Wrap" />
-                            <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
-                                <TextBox x:Name="HitSoundPathTextBox" Classes="address"
-                                         IsReadOnly="True"
-                                         Text="{Binding HitSoundPath, Mode=OneWay}"
-                                         ToolTip.Tip="{Binding HitSoundPath}"
-                                         PlaceholderText="Müzik dosyası seçilmedi"
-                                         AutomationProperties.Name="Hit müzik dosyası" />
-                                <Button Grid.Column="1" Classes="action" Height="46"
-                                        Content="Müzik Seç" Click="SelectHitSound_Click" />
-                            </Grid>
-                            <TextBlock Text="MP3, WAV, OGG, FLAC, M4A veya AAC"
-                                       FontSize="12" Foreground="#858C9D" TextWrapping="Wrap" />
-                            <TextBlock x:Name="SettingsStatusText" IsVisible="False"
-                                       FontSize="13" TextWrapping="Wrap" />
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </ScrollViewer>
-        </Border>
 
         <views:ConfigEditorView x:Name="ConfigEditorPage" Grid.Column="1"
                                 Margin="24" IsVisible="False" />
