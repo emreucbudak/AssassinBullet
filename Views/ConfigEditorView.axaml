@@ -9,17 +9,13 @@
                 <CheckBox Content="Ana sayfa URL'sini kullan"
                           IsChecked="{Binding UseHomePageUrl, Mode=TwoWay}"
                           AutomationProperties.AutomationId="UseTargetUrlCheckBox" />
-                <TextBlock Text="Metot" Classes="editorLabel" />
                 <ComboBox ItemsSource="{Binding Methods}" SelectedItem="{Binding Method, Mode=TwoWay}"
                           HorizontalAlignment="Stretch" MinHeight="40" AutomationProperties.Name="Metot" />
-                <TextBlock Text="URL" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding Url, Mode=TwoWay}" IsEnabled="{Binding !UseHomePageUrl}"
                          PlaceholderText="https://example.com" AutomationProperties.Name="URL" />
-                <TextBlock Text="Başlıklar" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding Headers, Mode=TwoWay}"
                          PlaceholderText="Accept: application/json" AcceptsReturn="True" TextWrapping="Wrap"
                          MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Başlıklar" />
-                <TextBlock Text="Gövde" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding Body, Mode=TwoWay}"
                          PlaceholderText="İstek gövdesi" AcceptsReturn="True" TextWrapping="Wrap"
                          MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Gövde" />
@@ -27,10 +23,8 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:VariableBlockViewModel}" x:DataType="vm:VariableBlockViewModel">
             <StackPanel Spacing="10">
-                <TextBlock Text="Değişken adı" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding VariableName, Mode=TwoWay}"
                          PlaceholderText="degisken" AutomationProperties.Name="Değişken adı" />
-                <TextBlock Text="Değer" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding VariableValue, Mode=TwoWay}"
                          PlaceholderText="Değişken değeri" AcceptsReturn="True" TextWrapping="Wrap"
                          MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Değer" />
@@ -38,36 +32,28 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:ParseBlockViewModel}" x:DataType="vm:ParseBlockViewModel">
             <StackPanel Spacing="10">
-                <TextBlock Text="Kaynak" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding Source, Mode=TwoWay}"
                          PlaceholderText="&lt;Source&gt; veya değişken adı" AutomationProperties.Name="Kaynak" />
-                <TextBlock Text="Sol sınır" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding Left, Mode=TwoWay}"
                          PlaceholderText="Örn. &lt;title&gt;" AcceptsReturn="True" TextWrapping="Wrap"
                          MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Sol sınır" />
-                <TextBlock Text="Sağ sınır" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding Right, Mode=TwoWay}"
                          PlaceholderText="Örn. &lt;/title&gt;" AcceptsReturn="True" TextWrapping="Wrap"
                          MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Sağ sınır" />
-                <TextBlock Text="Hedef değişken adı" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding VariableName, Mode=TwoWay}"
                          PlaceholderText="urunAdi" AutomationProperties.Name="Hedef değişken adı" />
             </StackPanel>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:KeyCheckBlockViewModel}" x:DataType="vm:KeyCheckBlockViewModel">
             <StackPanel Spacing="10">
-                <TextBlock Text="Where Check" Classes="editorLabel" />
                 <ComboBox ItemsSource="{Binding Sources}" SelectedItem="{Binding WhereCheck, Mode=TwoWay}"
                           HorizontalAlignment="Stretch" MinHeight="40" AutomationProperties.Name="Where Check" />
-                <TextBlock Text="Başarı metni" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding SuccessText, Mode=TwoWay}"
                          PlaceholderText="Başarılı yanıt metni" AcceptsReturn="True" TextWrapping="Wrap"
                          MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Başarı metni" />
-                <TextBlock Text="Hata metni" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding FailureText, Mode=TwoWay}"
                          PlaceholderText="Hata yanıt metni" AcceptsReturn="True" TextWrapping="Wrap"
                          MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Hata metni" />
-                <TextBlock Text="Retry mesajı" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding RetryText, Mode=TwoWay}"
                          PlaceholderText="Yeniden deneme gerektiren yanıt metni" AcceptsReturn="True" TextWrapping="Wrap"
                          MinHeight="96" MaxHeight="160" MaxLength="65536" AutomationProperties.Name="Retry mesajı" />
@@ -75,7 +61,6 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:FileWriteBlockViewModel}" x:DataType="vm:FileWriteBlockViewModel">
             <StackPanel Spacing="10">
-                <TextBlock Text="Dosyaya yazılacak metin" Classes="editorLabel" />
                 <TextBox Classes="editorInput" Text="{Binding FileContent, Mode=TwoWay}"
                          PlaceholderText="&lt;isim&gt;:&lt;sonuc&gt;" MaxLength="65536"
                          AutomationProperties.Name="Dosyaya yazılacak metin" />
@@ -182,8 +167,6 @@
                                             </Grid>
                                             <TextBlock Text="{Binding Name}" FontWeight="SemiBold"
                                                        TextTrimming="CharacterEllipsis" />
-                                            <TextBlock Text="{Binding Summary}" Foreground="#939DAF" FontSize="12"
-                                                       TextTrimming="CharacterEllipsis" />
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>
@@ -218,8 +201,6 @@
                             <Button Grid.Column="1" Classes="editor" Content="İptal"
                                     Command="{Binding SendHttpCancelCommand}" />
                         </Grid>
-                        <TextBlock Text="Tek istek • Yönlendirme yok"
-                                   FontSize="11" Foreground="#939DAF" TextWrapping="Wrap" />
                     </StackPanel>
                     <TextBlock Grid.Row="2" IsVisible="{Binding !HasSelection}" Text="Düzenlemek için akıştan bir blok seç."
                                TextWrapping="Wrap" Foreground="#939DAF" VerticalAlignment="Center" TextAlignment="Center" />
@@ -235,14 +216,9 @@
                                                TextWrapping="Wrap" FontSize="12"
                                                AutomationProperties.AutomationId="ResponseCheckResult" />
                                 </Border>
-                                <TextBlock Classes="editorLabel"
-                                           Text="Son HTTP yanıtındaki metni kontrol eder; büyük/küçük harf ayrımı yoktur." />
                             </StackPanel>
-                            <TextBlock Text="{Binding SelectedBlock.Description}" Classes="editorLabel"
-                                       IsVisible="{Binding !HasHttpSelection}" />
-                            <TextBlock Text="Blok adı" Classes="editorLabel" />
                             <TextBox Classes="editorInput" Text="{Binding SelectedBlock.Name, Mode=TwoWay}"
-                                     MaxLength="100" AutomationProperties.Name="Blok adı" />
+                                     MaxLength="100" PlaceholderText="Blok adı" AutomationProperties.Name="Blok adı" />
                             <CheckBox Content="Blok etkin"
                                       IsChecked="{Binding SelectedBlock.IsEnabled, Mode=TwoWay}" />
                             <ContentControl Content="{Binding SelectedBlock}" HorizontalContentAlignment="Stretch" />

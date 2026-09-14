@@ -47,7 +47,7 @@ namespace AssassinBullet.Services
                         cancel.ThrowIfCancellationRequested();
                         try
                         {
-                            var res = await requestService.FileWrite(fileWrite.FileContent, context);
+                            var res =  requestService.FileWrite(fileWrite.FileContent, context);
                             await FileWriteService.FileWrite(res);
                         }
                         catch
