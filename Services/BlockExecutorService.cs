@@ -104,10 +104,8 @@ namespace AssassinBullet.Services
                         else
                         {
                             var change = body.Substring(firstIndex,secondIndex - firstIndex + 1);
-                            if (context.Variables.TryGetValue($"Param{paramIndex}", out var changeableValue))
-                            {
-                                body = body.Replace(change, (string)changeableValue);
-                            }
+                            var changeableValue = context.Variables.GetValueOrDefault($"Param{paramIndex}");
+                            body = body.Replace(change, (string)changeableValue);
                             paramIndex++;
                         }
                     }
