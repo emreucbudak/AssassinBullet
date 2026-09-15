@@ -74,8 +74,6 @@ public partial class MainWindow : Window
     private void SyncEditorTargetUrl()
     {
         ConfigEditorPage.Editor.TargetUrl = TargetAddressTextBox.Text ?? "";
-        TargetDetailText.Text = string.IsNullOrWhiteSpace(TargetAddressTextBox.Text)
-            ? "Config URL'si" : TargetAddressTextBox.Text;
     }
 
     private void Navigate_Click(object? sender, RoutedEventArgs e)
@@ -93,7 +91,7 @@ public partial class MainWindow : Window
         }
         button.Classes.Add("selected");
 
-        // Keep the same scan view alive so switching pages preserves entered values.
+        
         ScanPage.IsVisible = page == "scan";
         ConfigEditorPage.IsVisible = page == "config";
 
