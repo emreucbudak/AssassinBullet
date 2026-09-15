@@ -86,6 +86,7 @@ namespace AssassinBullet.Services
                     return data;
                 case "POST":
                     var body = req.Body;
+                    var paramIndex = 1;
                     for (int i = 0; i < body.Length; i++)
                     {
                         var firstIndex = body.IndexOf("<", i);
@@ -99,6 +100,15 @@ namespace AssassinBullet.Services
                         {
                             var change = body.Substring(firstIndex, secondIndex - firstIndex + 1);
                             body = body.Replace(change, (string)value);
+                        }
+                        else
+                        {
+                            var change = body.Substring(firstIndex,secondIndex - firstIndex + 1);
+                            if (context.Variables.TryGetValue($"Param{paramIndex}", out var changeableValue))
+                            {
+                                body = body.Replace(change, (string)changeableValue);
+                            }
+                            paramIndex++;
                         }
                     }
                     var postContent = new StringContent(body, Encoding.UTF8, "application/json");
