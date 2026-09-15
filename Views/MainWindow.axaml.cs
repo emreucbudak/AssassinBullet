@@ -380,6 +380,10 @@ public partial class MainWindow : Window
             
             workChannel.channel.Writer.TryComplete();
             _scanCts.Cancel();
+            if (ResultsListBox.ItemsSource is System.Collections.IList results)
+            {
+                results.Clear();
+            }
             ScanStateText.Text = "Durduruldu";
             ScanStatusText.Text = "Tarama durduruldu.";
             StopScanButton.IsVisible = false;
